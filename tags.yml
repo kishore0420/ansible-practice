@@ -1,0 +1,21 @@
+---
+- name: mutipleplaybooks with tags
+  hosts: all
+  become: true
+  tasks:
+    - name: install nginx package
+      apt:
+        name: nginx
+        state: present
+
+- name: mutipleplaybooks with tags
+  hosts: all
+  become: true
+  tasks:
+    - name: install jenkins
+      apt:
+        name: jenkins
+        state: present
+      tags: jenkins         
+      
+        
