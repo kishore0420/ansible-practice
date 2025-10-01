@@ -12,10 +12,10 @@
   hosts: all
   become: true
   tasks:
-    - name: install jenkins
+    - name: install ansible
       apt:
-        name: jenkins
+        name: ansible
         state: present
-      tags: jenkins         
+      tags: ansible         
       
         
