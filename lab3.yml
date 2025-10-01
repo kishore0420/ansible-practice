@@ -14,5 +14,6 @@
   tasks:
     - name: create an archive
       archive:
-        path: /tmp/home.tar.xz
-        dest: /home
+        path: /home
+        dest: /tmp/home.tar.xz
+        format: bz2
