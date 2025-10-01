@@ -2,9 +2,9 @@
 - name: create a file
   hosts: all
   become: true
-- tasks: 
-    -name: create a  new file
-     file: 
-       path: /tmp/abc
-       mode: 0664
-       state: touch
+- tasks:
+    - name: create a new file
+      file: 
+        path: /tmp/abc
+        mode: 0664
+        state: touch
