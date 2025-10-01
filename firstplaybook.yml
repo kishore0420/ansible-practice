@@ -5,6 +5,6 @@
   tasks:
     - name: create a new file
       file: 
-        path: /tmp/abc
+        path: /tmp/xyz
         mode: 0664
         state: touch
