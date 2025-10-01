@@ -1,12 +1,24 @@
 ---
-- name: mutipleplaybooks with tags
+- name: Install and configure Nginx
   hosts: all
-  become: true
+  become: yes # Ensures tasks are run with elevated privileges (e.g., sudo)
+
   tasks:
-    - name: install nginx package
+    - name: Update apt cache (for Debian/Ubuntu based systems)
+      apt:
+        update_cache: yes
+      when: ansible_os_family == "ubuntu"
+
+    - name: Ensure Nginx is installed
       package:
         name: nginx
-        state: present
+        state: latest
+
+    - name: Ensure Nginx service is running and enabled on boot
+      service:
+        name: nginx
+        state: started
+        enabled: yes
       tags: nginx  
 
 - name: mutipleplaybooks with tags
