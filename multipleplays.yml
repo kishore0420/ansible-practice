@@ -17,7 +17,7 @@
   hosts: all
   become: true
   tasks:
-    - name: install maven package
+    - name: install Docker CE
       apt: 
-        name: maven
+        name: docker-ce
         state: present       
