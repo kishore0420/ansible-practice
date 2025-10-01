@@ -17,7 +17,7 @@
   hosts: all
   become: true
   tasks:
-    - name: install Docker CE
+    - name: install git
       apt: 
-        name: docker-ce
+        name: git
         state: present       
