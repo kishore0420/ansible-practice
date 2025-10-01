@@ -1,0 +1,18 @@
+---
+- name: nmap package
+  hosts: all
+  become: true
+  tasks: 
+    - name: install nmap package
+      package:
+        name: nmap
+        state: present
+
+- name: bzip2 archive
+  hosts: all
+  become: true
+  tasks:
+    - name: create an archive
+      archive:
+        path: /tmp/home.tar.xz
+        dest: /home
