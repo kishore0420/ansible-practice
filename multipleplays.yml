@@ -17,7 +17,7 @@
   hosts: all
   become: true
   tasks:
-    - name: install tree
+    - name: install tree package
       apt: 
         name: tree
         state: present       
