@@ -7,15 +7,16 @@
       apt:
         name: nginx
         state: present
+      tags: nginx  
 
 - name: mutipleplaybooks with tags
   hosts: all
   become: true
   tasks:
-    - name: install ansible
+    - name: install git
       apt:
-        name: ansible
+        name: git
         state: present
-      tags: ansible         
+              
       
         
