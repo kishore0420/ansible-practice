@@ -1,0 +1,13 @@
+---
+- name: variables with prompts
+  hosts: all
+  become: true
+  vars_prompt:
+    - name: username
+      prompt: whats your name ?
+      private: no
+  tasks:
+    - name: greet the user
+      debug:
+        msg: hello {{hello username}}
+          
