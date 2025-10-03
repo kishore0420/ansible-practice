@@ -1,0 +1,38 @@
+---
+- name: Install Apache and deploy custom homepage
+  hosts: webservers
+  become: true
+
+  vars:
+    apache_package: httpd
+    apache_service: httpd
+    homepage_title: "Welcome to My Server"
+    homepage_message: "Deployed via Ansible with variables!"
+    homepage_path: /var/www/html/index.html
+
+  tasks:
+    - name: Install Apache package
+      yum:
+        name: "{{ apache_package }}"
+        state: present
+
+    - name: Start and enable Apache service
+      systemd:
+        name: "{{ apache_service }}"
+        enabled: true
+        state: started
+
+    - name: Deploy custom homepage
+      copy:
+        dest: "{{ homepage_path }}"
+        content: |
+          <html>
+          <head><title>{{ homepage_title }}</title></head>
+          <body>
+            <h1>{{ homepage_title }}</h1>
+            <p>{{ homepage_message }}</p>
+          </body>
+          </html>
+        owner: apache
+        group: apache
+        mode: '0644'
