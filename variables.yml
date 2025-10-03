@@ -1,28 +1,28 @@
 ---
-- name: Install Apache and deploy custom homepage
-  hosts: webservers
+- name: Install and configure NGINX with variables
+  hosts: all
   become: true
 
   vars:
-    apache_package: httpd
-    apache_service: httpd
-    homepage_title: "Welcome to My Server"
-    homepage_message: "Deployed via Ansible with variables!"
+    package_name: nginx
+    service_name: nginx
     homepage_path: /var/www/html/index.html
+    homepage_title: "Welcome to Ansible Web Server"
+    homepage_body: "This page was created using Ansible variables."
 
   tasks:
-    - name: Install Apache package
-      dnf:
-        name: "{{ apache_package }}"
+    - name: Install NGINX
+      apt:
+        name: "{{ package_name }}"
         state: present
 
-    - name: Start and enable Apache service
+    - name: Start and enable NGINX service
       systemd:
-        name: "{{ apache_service }}"
+        name: "{{ service_name }}"
         enabled: true
         state: started
 
-    - name: Deploy custom homepage
+    - name: Create a custom index.html
       copy:
         dest: "{{ homepage_path }}"
         content: |
@@ -30,9 +30,9 @@
           <head><title>{{ homepage_title }}</title></head>
           <body>
             <h1>{{ homepage_title }}</h1>
-            <p>{{ homepage_message }}</p>
+            <p>{{ homepage_body }}</p>
           </body>
           </html>
-        owner: apache
-        group: apache
+        owner: www-data
+        group: www-data
         mode: '0644'
