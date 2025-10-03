@@ -9,5 +9,5 @@
   tasks:
     - name: greet the user
       ansible.builtin.debug
-        msg: hello {{hello username}}
+        msg: hello {{username}}
           
