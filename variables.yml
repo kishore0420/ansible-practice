@@ -12,7 +12,7 @@
 
   tasks:
     - name: Install Apache package
-      yum:
+      apt:
         name: "{{ apache_package }}"
         state: present
 
