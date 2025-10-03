@@ -8,6 +8,6 @@
       private: no
   tasks:
     - name: greet the user
-      debug:
+      ansible.builtin.debug
         msg: hello {{hello username}}
           
