@@ -1,0 +1,10 @@
+---
+- name: saying my name
+  hosts: all
+  vars:
+    my_name: kishore
+  tasks:
+    - name: say the my_name
+      debug:
+        msg: i am {{my_name}}
+  
