@@ -12,7 +12,7 @@
 
   tasks:
     - name: Install Apache package
-      apt:
+      dnf:
         name: "{{ apache_package }}"
         state: present
 
