@@ -5,7 +5,8 @@
   tasks:
     - name: install zlib
       ansible.builtin.package:
-      state: present
+        name: zlib
+        state: present
 
 - name: create a file
   hosts: all
@@ -14,7 +15,7 @@
     - name: create a new file
       ansible.builtin.file:
         path: /tmp/some_file
-        state: file
+        state: touch
 
            
          
