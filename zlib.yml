@@ -1,0 +1,20 @@
+---
+- name: install zlib
+  hosts: all
+  become: true
+  tasks:
+    - name: install zlib
+      apt:
+      state: present
+
+- name: create a file
+  hosts: all
+  become: true
+  tasks: 
+    - name: create a new file
+      ansible.builtin.file:
+        path: /tmp/some_file
+        state: file
+
+           
+         
