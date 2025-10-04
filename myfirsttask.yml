@@ -1,0 +1,9 @@
+---
+- name: my first task
+  hosts: all
+  become: true
+  tasks:
+    - name: create a new directory
+      ansible.builtin.file:
+      path: /tmp/new_directory
+      state: present
