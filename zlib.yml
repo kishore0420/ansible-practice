@@ -4,7 +4,7 @@
   become: true
   tasks:
     - name: install zlib
-      apt:
+      ansible.builtin.package:
       state: present
 
 - name: create a file
