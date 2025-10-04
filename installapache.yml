@@ -1,0 +1,49 @@
+---
+- name: Install and configure Apache HTTP Server
+  hosts: all # Replace with your inventory group or hostname
+  become: yes # Run tasks with sudo privileges
+
+  tasks:
+    - name: Gather facts about the operating system
+      ansible.builtin.setup:
+        filter: ansible_os_family
+
+    - name: Install Apache on Debian-based systems
+      ansible.builtin.apt:
+        name: apache2
+        state: present
+        update_cache: yes
+      when: ansible_os_family == "Debian"
+
+    - name: Install Apache on RedHat-based systems
+      ansible.builtin.dnf: # or 'yum' for older RedHat versions
+        name: httpd
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Ensure Apache service is started and enabled
+      ansible.builtin.service:
+        name: "{{ 'apache2' if ansible_os_family == 'Debian' else 'httpd' }}"
+        state: started
+        enabled: yes
+
+    - name: Ensure Apache is listening on port 80 (firewalld)
+      ansible.posix.firewalld:
+        service: http
+        permanent: yes
+        state: enabled
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int >= 7
+
+    - name: Ensure Apache is listening on port 80 (ufw)
+      community.general.ufw:
+        rule: allow
+        port: '80'
+        proto: tcp
+      when: ansible_os_family == "Debian" and ansible_distribution_major_version | int >= 16
+
+    - name: Verify Apache is listening on port 80
+      ansible.builtin.wait_for:
+        port: 80
+        host: "{{ inventory_hostname }}"
+        timeout: 60
+      delegate_to: localhost
